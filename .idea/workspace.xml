@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="081b7f8e-5280-4576-88f8-46033d01efc5" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/TestProtonMail.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -29,8 +28,8 @@
       <file leaf-file-name="protonMail.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/protonMail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="50" column="72" lean-forward="false" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
+            <state relative-caret-position="174">
+              <caret line="55" column="107" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -74,7 +73,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="121" />
+    <option name="x" value="44" />
     <option name="y" value="36" />
     <option name="width" value="1400" />
     <option name="height" value="824" />
@@ -299,10 +298,18 @@
       <option name="presentableId" value="Default" />
       <updated>1513137265846</updated>
     </task>
+    <task id="LOCAL-00001" summary="dfgjhdfjkdf">
+      <created>1513233905142</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1513233905142</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="121" y="36" width="1400" height="824" extended-state="0" />
+    <frame x="44" y="36" width="1400" height="824" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -335,6 +342,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="dfgjhdfjkdf" />
+    <option name="LAST_COMMIT_MESSAGE" value="dfgjhdfjkdf" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -400,8 +411,8 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/TestProtonMail.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/protonMail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="50" column="72" lean-forward="false" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
+        <state relative-caret-position="174">
+          <caret line="55" column="107" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
