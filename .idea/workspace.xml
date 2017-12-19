@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="081b7f8e-5280-4576-88f8-46033d01efc5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebDriverBasics.iml" afterPath="$PROJECT_DIR$/WebDriverBasics.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/TestProtonMail.java" afterPath="$PROJECT_DIR$/src/main/java/TestProtonMail.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -33,10 +29,13 @@
       <file leaf-file-name="TestProtonMail.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/TestProtonMail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="91" column="56" lean-forward="false" selection-start-line="91" selection-start-column="56" selection-end-line="91" selection-end-column="56" />
+            <state relative-caret-position="106">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#605#606#0" expanded="true" />
+                <element signature="e#649#650#0" expanded="true" />
+                <element signature="e#5881#5882#0" expanded="true" />
+                <element signature="e#5963#5964#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,10 +98,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1369" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="129" />
+    <option name="y" value="95" />
+    <option name="width" value="1383" />
     <option name="height" value="820" />
   </component>
   <component name="ProjectView">
@@ -371,42 +370,50 @@
       <option name="presentableId" value="Default" />
       <updated>1513137265846</updated>
     </task>
+    <task id="LOCAL-00001" summary="make test and configurate">
+      <created>1513669380918</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1513669380918</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="testng_xml - 2017.12.19 at 12h 18m 23s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 19m 19s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 21m 04s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 27m 34s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 30m 38s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 36m 52s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 40m 27s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 42m 26s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="testng_xml - 2017.12.19 at 12h 43m 35s.xml">
-      <configuration name="testng.xml" configurationId="TestNG" />
-    </history-entry>
     <history-entry file="testng_xml - 2017.12.19 at 12h 45m 46s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 14h 35m 34s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 14h 35m 40s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 17h 50m 14s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 17h 51m 51s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 17h 53m 12s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 17h 54m 57s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 17h 56m 17s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 17h 59m 48s.xml">
+      <configuration name="testng.xml" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="testng_xml - 2017.12.19 at 18h 02m 52s.xml">
       <configuration name="testng.xml" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="129" y="95" width="1383" height="820" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -418,11 +425,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32909605" sideWeight="0.50289017" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3049738" sideWeight="0.49710983" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32909605" sideWeight="0.49710983" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.253109" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32909605" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -439,6 +446,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="make test and configurate" />
+    <option name="LAST_COMMIT_MESSAGE" value="make test and configurate" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -460,7 +471,10 @@
         <state relative-caret-position="952">
           <caret line="56" column="103" lean-forward="false" selection-start-line="56" selection-start-column="103" selection-end-line="56" selection-end-column="103" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#5881#5882#0" expanded="true" />
+            <element signature="e#5963#5964#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -494,7 +508,10 @@
         <state relative-caret-position="493">
           <caret line="29" column="77" lean-forward="false" selection-start-line="29" selection-start-column="77" selection-end-line="29" selection-end-column="77" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#5881#5882#0" expanded="true" />
+            <element signature="e#5963#5964#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -512,7 +529,10 @@
         <state relative-caret-position="425">
           <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#5881#5882#0" expanded="true" />
+            <element signature="e#5963#5964#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -530,7 +550,10 @@
         <state relative-caret-position="442">
           <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#5881#5882#0" expanded="true" />
+            <element signature="e#5963#5964#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -581,10 +604,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TestProtonMail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="91" column="56" lean-forward="false" selection-start-line="91" selection-start-column="56" selection-end-line="91" selection-end-column="56" />
+        <state relative-caret-position="106">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#5881#5882#0" expanded="true" />
+            <element signature="e#5963#5964#0" expanded="true" />
           </folding>
         </state>
       </provider>

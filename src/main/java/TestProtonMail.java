@@ -1,4 +1,3 @@
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-
-
 public class TestProtonMail {
     WebDriver driver;
 
     public static void main(String[] args) {
-        org.testng.TestNG.main(args); }
+        org.testng.TestNG.main(args);
+    }
 
 
     @BeforeClass
@@ -73,9 +72,9 @@ public class TestProtonMail {
         driver.switchTo().defaultContent();
         driver.findElement(By.xpath("//*[@data-original-title = 'Закрыть']")).click();
 
-     //   String textMessage = driver.findElement(By.xpath(".//*[@id='uid6']/header/span")).getText();
+        //   String textMessage = driver.findElement(By.xpath(".//*[@id='uid6']/header/span")).getText();
 
-      //  Assert.assertEquals("New message", textMessage);
+        //  Assert.assertEquals("New message", textMessage);
     }
 
     @Test(dataProvider = "dataForTestEmail", dependsOnMethods = {"createNewMessage"})
@@ -89,9 +88,10 @@ public class TestProtonMail {
 
         for (WebElement webElement : list)
 
-        {   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-            if (webElement.findElement(By.xpath("//*[@class = 'senders-name']")).getText().equals(email) &&
-                    webElement.findElement(By.xpath("//*[@class = 'subject-text ellipsis']")).getText().equals(topic)) {
+        {
+            driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+
+            if (webElement.findElement(By.xpath("//*[@class = 'senders-name']")).getText().equals(email) && webElement.findElement(By.xpath("//*[@class = 'subject-text ellipsis']")).getText().equals(topic)) {
                 webElement.click();
                 WebElement fr = driver.findElement(By.xpath("//iframe[@class = 'squireIframe']"));
                 driver.switchTo().frame(fr);
@@ -101,17 +101,47 @@ public class TestProtonMail {
 
                     driver.findElement(By.xpath(".//*[text()='Отправить']")).click();
                 }
-              //  String textAfterSend = driver.findElement(By.xpath(".//*[@id='secured-inbox']/div[3]/div[1]/span")).getText();
-                //Assert.assertEquals("Message sent", textAfterSend);
             }
         }
     }
 
+    @Test(dataProvider = "dataForTestEmail", dependsOnMethods = {"sendMessageTetsFromDraft"})
+
+    private void verifySendMessageTets(String email, String topic, String contain) {
+
+
+        driver.findElement(By.xpath(".//span[text() = 'Отправленные']")).click();
+
+        List<WebElement> list = (List<WebElement>) driver.findElements(By.xpath(".//*[@ng-repeat = 'conversation in conversations track by conversation.ID']"));
+
+        for (WebElement webElement : list)
+
+        {
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            if (webElement.findElement(By.xpath("//*[@class = 'senders-name']")).getText().equals(email) && webElement.findElement(By.xpath("//*[@class = 'subject-text ellipsis']")).getText().equals(topic)) {
+                webElement.click();
+                WebElement fr = driver.findElement(By.xpath(".//iframe[@class = 'squireIframe']"));
+                driver.switchTo().frame(fr);
+
+                if (driver.findElement(By.xpath("//*[@class='protonmail_signature_block']/preceding-sibling::div[2]")).getText().equals(contain)) {
+                    driver.switchTo().defaultContent();
+
+                    driver.findElement(By.xpath(".//*[@id='body']/header/div/a")).click();
+                }
+            }
+        }
+    }
+
+    @Test(dependsOnMethods = {"verifySendMessageTets"})
+
+    private void logOff() {
+        driver.findElement(By.xpath(".//*[@class='fa fa-angle-down']")).click();
+        driver.findElement(By.xpath(".//*[@class='pm_button primary text-center navigationUser-logout']")).click();
+    }
+
     @DataProvider
     public Object[][] dataForTestEmail() {
-        return new Object[][] {
-            {"tani455@mail.ru","Tatyana","Some text"}
-        };
+        return new Object[][]{{"tani455@mail.ru", "Tatyana", "Some text"}};
     }
 
 
