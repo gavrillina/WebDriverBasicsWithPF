@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TestProtonMail {
     WebDriver driver;
-    Boolean webDinamicElement;
+    HomePageFactory homePageFactory;
+    InboxPageFactory inboxPageFactory;
 
     public static void main(String[] args) {
         org.testng.TestNG.main(args);
@@ -35,19 +36,14 @@ public class TestProtonMail {
     }
 
 
-    @Test
-    private void logIn() {
+    @Test(dataProvider = "testDataForLogIn")
 
-        HomePageFactory homePageFactory = new HomePageFactory(driver);
+    private void logIn(String login, String password) {
 
-        homePageFactory.logIn();
-        homePageFactory.waitForPageToLoad();
-        homePageFactory.fillDataForLogIn("automationTest@protonmail.com", "test123456");
-        homePageFactory.enterToMail();
-        // homePageFactory.waitForWelcomeTextToLoad();
-
-
-        //  Assert.assertEquals("Добро пожаловать",homePageFactory.getWelcomeText());
+        homePageFactory = new HomePageFactory(driver);
+        homePageFactory.cliclLoginButton();
+        homePageFactory.login(login,password);
+        Assert.assertEquals("Добро пожаловать", homePageFactory.welcomeText());
 
     }
 
@@ -59,13 +55,15 @@ public class TestProtonMail {
         inboxPageFactory.waitForNewMessageButtonToLoad();
 
         inboxPageFactory.clickNewMessage();
-
         inboxPageFactory.waitForSendermMilFieldToLoad();
-     //   inboxPageFactory.waitForMailTopicToLoad();
 
+        inboxPageFactory.waitForMailTopicToLoad();
         inboxPageFactory.createNewMessage(mail);
 
-     //   inboxPageFactory.waitForButtonCloseToLoad();
+
+        inboxPageFactory.waitForFrameToLoad();
+
+        inboxPageFactory.waitForButtonCloseToLoad();
 
         inboxPageFactory.closeMessage();
 
@@ -134,9 +132,14 @@ public class TestProtonMail {
         return new Object[][]{{mail}};
     }
 
+    @DataProvider
+    public Object[][] testDataForLogIn() {
+        return new Object[][]{{"automationTest@protonmail.com", "test123456"}};
+    }
+
     @AfterClass
     private void closeBrowser() {
-        driver.close();
+        driver.quit();
     }
 
 }
