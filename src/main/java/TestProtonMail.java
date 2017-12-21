@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -14,14 +15,17 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class TestProtonMail{
+public class TestProtonMail {
     WebDriver driver;
+    Boolean webDinamicElement;
+
     public static void main(String[] args) {
-        org.testng.TestNG.main(args); }
+        org.testng.TestNG.main(args);
+    }
 
 
     @BeforeClass
-    private void openBrauser(){
+    private void openBrauser() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://protonmail.com/");
@@ -32,62 +36,60 @@ public class TestProtonMail{
 
 
     @Test
-    private void logIn(){
+    private void logIn() {
 
-        driver.findElement(By.xpath("//*[@id='bs-example-navbar-collapse-1']/ul/li[7]/a")).click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.findElement(By.xpath("//*[@id='username']")).sendKeys("automationTest@protonmail.com");
-        driver.findElement(By.xpath("//*[@id='password']")).sendKeys("test123456");
-        driver.findElement(By.xpath("//*[@id='login_btn']")).click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        String welcomText = driver.findElement(By.xpath("//*[@id='pm_latest']/header")).getText();
+        HomePageFactory homePageFactory = new HomePageFactory(driver);
 
-        Assert.assertEquals("Добро пожаловать", welcomText);
+        homePageFactory.logIn();
+        homePageFactory.waitForPageToLoad();
+        homePageFactory.fillDataForLogIn("automationTest@protonmail.com", "test123456");
+        homePageFactory.enterToMail();
+        // homePageFactory.waitForWelcomeTextToLoad();
+
+
+        //  Assert.assertEquals("Добро пожаловать",homePageFactory.getWelcomeText());
 
     }
 
-    @Test(dataProvider="testDataForMail", dependsOnMethods ={"logIn"} )
-    private void createNewMail(String email, String subject, String textContent) throws InterruptedException {
-        driver.findElement(By.cssSelector(".compose.pm_button.sidebar-btn-compose")).click();
+    @Test(dataProvider = "testDataForMail", dependsOnMethods = {"logIn"})
+    private void createNewMail(Mail mail) {
 
-        driver.findElement(By.cssSelector("#autocomplete")).sendKeys(email);
-        driver.findElement(By.xpath("//*[@id='uid1']/div[2]/div[5]/input")).sendKeys(subject);
+        InboxPageFactory inboxPageFactory = new InboxPageFactory(driver);
 
-        WebElement frame = driver.findElement(By.xpath("//iframe[@class = 'squireIframe']"));
-        driver.switchTo().frame(frame);
+        inboxPageFactory.waitForNewMessageButtonToLoad();
 
-        driver.findElement(By.xpath("//*[@class='protonmail_signature_block']/preceding-sibling::div[2]")).click();
+        inboxPageFactory.clickNewMessage();
 
-        Actions make  = new Actions(driver);
-        Action kbEvents = make.sendKeys(textContent).build();
-        kbEvents.perform();
-        Thread.sleep(2000);
+        inboxPageFactory.waitForSendermMilFieldToLoad();
+     //   inboxPageFactory.waitForMailTopicToLoad();
 
+        inboxPageFactory.createNewMessage(mail);
 
-        driver.switchTo().defaultContent();
-        driver.findElement(By.xpath("//*[@data-original-title = 'Закрыть']")).click();
+     //   inboxPageFactory.waitForButtonCloseToLoad();
 
+        inboxPageFactory.closeMessage();
 
 
     }
 
-    @Test(dataProvider = "testDataForMail" , dependsOnMethods = {"createNewMail"})
+    @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
     private void checkingDraftPresence(String email, String subject, String textContent) throws InterruptedException {
         driver.findElement(By.xpath(".//span[text() = 'Черновики']")).click();
         List<WebElement> list = (List<WebElement>) driver.findElements(By.xpath(".//*[@ng-repeat = 'conversation in conversations track by conversation.ID']"));
 
         for (WebElement webElement : list) {
-            driver.manage().timeouts().implicitlyWait(100,TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 
-            if (webElement.findElement(By.xpath("//*[@class = 'senders-name']")).getText().equals(email) &&
-                    webElement.findElement(By.xpath("//*[@class = 'subject-text ellipsis']")).getText().equals(subject)){
+            if (webElement.findElement(By.xpath("//*[@class = 'senders-name']")).getText().equals(email) && webElement.findElement(By.xpath("//*[@class = 'subject-text ellipsis']")).getText().equals(subject)) {
                 webElement.click();
                 WebElement frame = driver.findElement(By.xpath("//iframe[@class = 'squireIframe']"));
                 driver.switchTo().frame(frame);
 
-                if (driver.findElement(By.xpath("//*[@class='protonmail_signature_block']/preceding-sibling::div[2]")).getText().equals(textContent)){
+                if (driver.findElement(By.xpath("//*[@class='protonmail_signature_block']/preceding-sibling::div[2]")).getText().equals(textContent)) {
                     driver.switchTo().defaultContent();
                     driver.findElement(By.xpath(".//*[text()='Отправить']")).click();
+                    driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+
                 }
 
             }
@@ -95,13 +97,13 @@ public class TestProtonMail{
 
     }
 
-    @Test(dataProvider = "testDataForMail" , dependsOnMethods = {"checkingDraftPresence"})
-    private void verifySendTest (String email, String subject, String textContent) throws InterruptedException {
+    @Test(dataProvider = "testDataForMail", dependsOnMethods = {"checkingDraftPresence"})
+    private void verifySendTest(String email, String subject, String textContent) throws InterruptedException {
         driver.findElement(By.xpath(".//span[text() = 'Отправленные']")).click();
         List<WebElement> list = (List<WebElement>) driver.findElements(By.xpath(".//*[@ng-repeat = 'conversation in conversations track by conversation.ID']"));
 
         for (WebElement webElement : list) {
-            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
 
             if (webElement.findElement(By.xpath("//*[@class = 'senders-name']")).getText().equals(email) && webElement.findElement(By.xpath("//*[@class = 'subject-text ellipsis']")).getText().equals(subject)) {
                 webElement.click();
@@ -111,12 +113,12 @@ public class TestProtonMail{
                 if (driver.findElement(By.xpath("//*[@class='protonmail_signature_block']/preceding-sibling::div[2]")).getText().equals(textContent)) {
                     driver.switchTo().defaultContent();
                     driver.findElement(By.xpath(".//*[@class='headerSecuredDesktop-logo headerDesktop-logo protonmailLogo-container logo']")).click();
+                    driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
                 }
 
             }
         }
     }
-
 
 
     @Test(dependsOnMethods = {"verifySendTest"})
@@ -125,15 +127,15 @@ public class TestProtonMail{
         driver.findElement(By.xpath(".//*[@class='pm_button primary text-center navigationUser-logout']")).click();
 
     }
-        @DataProvider
-        public Object[][] testDataForMail(){
-            return new Object[][]{
-                    {"tani455@mail.ru", "Tatyana", "Some text"}
-            };
-        }
+
+    @DataProvider
+    public Object[][] testDataForMail() {
+        Mail mail = new Mail("tani455@mail.ru", "Tatyana", "Some text");
+        return new Object[][]{{mail}};
+    }
 
     @AfterClass
-    private void closeBrowser(){
+    private void closeBrowser() {
         driver.close();
     }
 
