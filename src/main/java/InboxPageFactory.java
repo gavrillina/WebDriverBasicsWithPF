@@ -6,6 +6,9 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 
 public class InboxPageFactory extends AbstractPageFactory {
     WebDriver driver;
@@ -13,6 +16,9 @@ public class InboxPageFactory extends AbstractPageFactory {
     public InboxPageFactory(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(xpath = "//*[@id='pm_latest']/header")
+    private WebElement welcomeText;
 
     @FindBy(xpath = "//*[@class='compose pm_button sidebar-btn-compose']")
     WebElement newMessageButton;
@@ -33,14 +39,28 @@ public class InboxPageFactory extends AbstractPageFactory {
     @FindBy(xpath = "//*[@data-original-title = 'Закрыть']")
     WebElement closeButton;
 
+    @FindBy(xpath = "//span[text() = 'Черновики']")
+    WebElement draft;
 
-    public void clickNewMessage() {
+    @FindBy(xpath = "//*[@ng-repeat = 'conversation in conversations track by conversation.ID']")
+    List<WebElement> draftList;
 
-        newMessageButton.click();
+    @FindBy(xpath = "//*[text()='Отправить']")
+    WebElement sendButton;
+
+    public String welcomeText(){
+        waitForElementToBeClickable(newMessageButton);
+        return welcomeText.getText();
     }
 
-    public void createNewMessage(Mail mail) {
 
+      public void createNewMessage(Mail mail) {
+
+        waitForVisibilityOfAllElementsLocatedBy(newMessageButton);
+        welcomeText.getText();
+
+        newMessageButton.click();
+        waitForElementToBeClickable(senderMail);
         senderMail.sendKeys(mail.getSenderMail());
         mailTopic.sendKeys(mail.getTopic());
 
@@ -48,143 +68,48 @@ public class InboxPageFactory extends AbstractPageFactory {
 
         textContain.click();
 
-
         Actions make = new Actions(getDriver());
         Action kbEvents = make.sendKeys(mail.getTextContain()).build();
         kbEvents.perform();
 
         getDriver().switchTo().defaultContent();
-    }
 
-    public void closeMessage() {
         closeButton.click();
-    }
 
-    private boolean isNewMessageButtonDisplayed() {
-        try {
-            return newMessageButton.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
+           }
 
-    protected void waitForNewMessageButtonToLoad() {
-        int secondsCount = 0;
-        boolean isPageOpenedIndicator = isNewMessageButtonDisplayed();
-        while (!isPageOpenedIndicator && secondsCount < 5) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public  void veryfySendMessage(Mail mail){
+
+        waitForElementToBeClickable(draft);
+        draft.click();
+        waitForListElements(draftList);
+
+        for (WebElement webElement : draftList) {
+
+           waitForElementToBeClickable(webElement);
+
+            if (senderMail.getText().equals(mail.getSenderMail()) && mailTopic.getText().equals(mail.getTopic())) {
+
+                webElement.click();
+
+                getDriver().switchTo().frame(frame);
+
+                if (textContain.getText().equals(mail.getTextContain())) {
+                    getDriver().switchTo().defaultContent();
+
+                    waitForElementToBeClickable(sendButton);
+                    sendButton.click();
+
+                }
+break;
             }
-            secondsCount++;
-            isPageOpenedIndicator = isNewMessageButtonDisplayed();
         }
-        if (!isPageOpenedIndicator) {
-            throw new AssertionError("Page was not opened");
-        }
-    }
 
-    private boolean isSenderMailFieldDisplayed() {
-        try {
-            return senderMail.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
 
-    protected void waitForSendermMilFieldToLoad() {
-        int secondsCount = 0;
-        boolean isPageOpenedIndicator = isSenderMailFieldDisplayed();
-        while (!isPageOpenedIndicator && secondsCount < 5) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            secondsCount++;
-            isPageOpenedIndicator = isSenderMailFieldDisplayed();
-        }
-        if (!isPageOpenedIndicator) {
-            throw new AssertionError("Page was not opened");
-        }
-    }
 
-    private boolean isMailTopicDisplayed() {
-        try {
-            return mailTopic.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    protected void waitForMailTopicToLoad() {
-        int secondsCount = 0;
-        boolean isPageOpenedIndicator = isMailTopicDisplayed();
-        while (!isPageOpenedIndicator && secondsCount < 5) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            secondsCount++;
-            isPageOpenedIndicator = isMailTopicDisplayed();
-        }
-        if (!isPageOpenedIndicator) {
-            throw new AssertionError("Page was not opened");
-        }
-    }
-
-    private boolean isCloseButtonisplayed() {
-        try {
-            return mailTopic.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    protected void waitForButtonCloseToLoad() {
-        int secondsCount = 0;
-        boolean isPageOpenedIndicator = isCloseButtonisplayed();
-        while (!isPageOpenedIndicator && secondsCount < 5) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            secondsCount++;
-            isPageOpenedIndicator = isCloseButtonisplayed();
-        }
-        if (!isPageOpenedIndicator) {
-            throw new AssertionError("Page was not opened");
-        }
     }
 
 
-    private boolean isFrameDisplayed() {
-        try {
-            return frame.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    protected void waitForFrameToLoad() {
-        int secondsCount = 0;
-        boolean isPageOpenedIndicator = isFrameDisplayed();
-        while (!isPageOpenedIndicator && secondsCount < 5) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            secondsCount++;
-            isPageOpenedIndicator = isFrameDisplayed();
-        }
-        if (!isPageOpenedIndicator) {
-            throw new AssertionError("Page was not opened");
-        }
-    }
 }
 
 
