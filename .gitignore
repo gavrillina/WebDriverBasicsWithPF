@@ -1,0 +1,9 @@
+.classpath
+.idea
+.settings
+.project
+*.iml
+bin
+target
+test-output
+testng.xml

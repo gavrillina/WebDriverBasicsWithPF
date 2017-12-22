@@ -1,3 +1,5 @@
+package Entity;
+
 public class Mail {
 
     private String senderMail;

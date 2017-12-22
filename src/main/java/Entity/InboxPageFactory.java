@@ -1,5 +1,5 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+package Entity;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
@@ -7,7 +7,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 public class InboxPageFactory extends AbstractPageFactory {
@@ -17,17 +16,20 @@ public class InboxPageFactory extends AbstractPageFactory {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id='pm_latest']/header")
-    private WebElement welcomeText;
-
     @FindBy(xpath = "//*[@class='compose pm_button sidebar-btn-compose']")
     WebElement newMessageButton;
 
     @FindBy(css = "#autocomplete")
     WebElement senderMail;
 
+    @FindBy(xpath = "//*[@class = 'senders-name']")
+    WebElement senderName;
+
     @FindBy(xpath = "//*[@id='uid1']/div[2]/div[5]/input")
     WebElement mailTopic;
+
+    @FindBy(xpath = "//*[@class = 'subject-text ellipsis']")
+    private WebElement subjectText;
 
     @FindBy(xpath = "//iframe[@class = 'squireIframe']")
     WebElement frame;
@@ -39,6 +41,9 @@ public class InboxPageFactory extends AbstractPageFactory {
     @FindBy(xpath = "//*[@data-original-title = 'Закрыть']")
     WebElement closeButton;
 
+    @FindBy(xpath = "//*[@aria-label='Сохранить']")
+    private WebElement saveButton;
+
     @FindBy(xpath = "//span[text() = 'Черновики']")
     WebElement draft;
 
@@ -48,16 +53,12 @@ public class InboxPageFactory extends AbstractPageFactory {
     @FindBy(xpath = "//*[text()='Отправить']")
     WebElement sendButton;
 
-    public String welcomeText(){
-        waitForElementToBeClickable(newMessageButton);
-        return welcomeText.getText();
-    }
+    @FindBy(xpath = "//span[@ng-bind-html = '$message']")
+    private WebElement messagePopUp;
 
 
-      public void createNewMessage(Mail mail) {
+    public void createNewMessage(Mail mail) {
 
-        waitForVisibilityOfAllElementsLocatedBy(newMessageButton);
-        welcomeText.getText();
 
         newMessageButton.click();
         waitForElementToBeClickable(senderMail);
@@ -74,43 +75,46 @@ public class InboxPageFactory extends AbstractPageFactory {
 
         getDriver().switchTo().defaultContent();
 
-        closeButton.click();
+        saveButton.click();
 
-           }
+        waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
 
-    public  void veryfySendMessage(Mail mail){
+
+    }
+
+    public void veryfySendMessage(Mail mail) throws DraftNotFoundException {
 
         waitForElementToBeClickable(draft);
         draft.click();
         waitForListElements(draftList);
 
-        for (WebElement webElement : draftList) {
 
-           waitForElementToBeClickable(webElement);
+        List<WebElement> list = (List<WebElement>) draftList;
 
-            if (senderMail.getText().equals(mail.getSenderMail()) && mailTopic.getText().equals(mail.getTopic())) {
+        for (WebElement webElement : list) {
+            if (senderName.getText().equals(mail.getSenderMail()) && subjectText.getText().equals(mail.getTopic())) {
 
                 webElement.click();
 
-                getDriver().switchTo().frame(frame);
+                WebElement iFrame = frame;
+                getDriver().switchTo().frame(iFrame);
+
 
                 if (textContain.getText().equals(mail.getTextContain())) {
                     getDriver().switchTo().defaultContent();
 
-                    waitForElementToBeClickable(sendButton);
+
                     sendButton.click();
+                    waitForVisibilityOfAllElementsLocatedBy(messagePopUp);
 
-                }
-break;
+                } else throw new DraftNotFoundException("The draft has not been found");
             }
+            break;
         }
-
 
 
     }
 
 
 }
-
-
 

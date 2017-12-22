@@ -1,11 +1,7 @@
-import org.openqa.selenium.By;
+import Entity.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -29,13 +25,11 @@ public class TestProtonMail {
 
 
     @Test(dataProvider = "testDataForLogIn")
-    private void logInToBox(String userName, String userPassword) {
+    private void logInToBox(String userName, String userPassword) throws CannotLoginException {
 
         homePageFactory = new HomePageFactory(driver);
         inboxPageFactory = new InboxPageFactory(driver);
         homePageFactory.clickLoginButton().doLogIn(userName, userPassword);
-
-        Assert.assertEquals("Добро пожаловать", inboxPageFactory.welcomeText());
 
     }
 
@@ -46,7 +40,7 @@ public class TestProtonMail {
     }
 
     @Test(dataProvider = "testDataForMail", dependsOnMethods = {"createNewMail"})
-    private void checkingDraftPresence(Mail mail) {
+    private void checkingDraftPresence(Mail mail) throws DraftNotFoundException {
 
         inboxPageFactory.veryfySendMessage(mail);
     }
